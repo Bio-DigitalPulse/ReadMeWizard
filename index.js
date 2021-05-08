@@ -1,11 +1,11 @@
 
-const generateMarkdown = require('./utils/generateMarkdown.js');
+const generateMarkdown = require('./utils/generateMarkdown.js');        //Variables declared
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require("util");
 const createContent = util.promisify(fs.writeFile);
 
-function itemSpecs(){
+function itemSpecs(){       //Array of specific questions to populate README
     return inquirer.prompt([
         {
             type: "input",
@@ -69,11 +69,11 @@ function itemSpecs(){
     ]);
 } 
  
-  async function init() {
+  async function init() {       //Async function to generate README
     try {
         const answers = await itemSpecs();
         const generateContent = generateMarkdown(answers);
-        await createContent('./project/README.md', generateContent);
+        await createContent('./auto-gen.README.md', generateContent);
         console.log('Successfully wrote to README.md');
     }   catch(err) {
         console.log(err);
