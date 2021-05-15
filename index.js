@@ -1,17 +1,17 @@
-  
-const fs = require("fs");
+
+const fs = require("fs");           //Declared variables used within the script
 const util = require("util");
 const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown")
-const writeFileAsync = util.promisify(fs.writeFile);
+const asyncFileFunction = util.promisify(fs.writeFile);
 
 
-function promptUser(){
+function projectPrompts() {      //Prompt function for the information to populate the file
     return inquirer.prompt([
         {
             type: "input",
-            name: "projectTitle",
-            message: "Please provide the title of this project: ",
+            name: "projectName",
+            message: "Please provide the name of this project: ",
         },
         {
             type: "input",
@@ -68,20 +68,21 @@ function promptUser(){
             message: "Please enter your email: "
         }
     ]);
-} 
+}
 
-
-  async function init() {
+async function init() {     //Async function to await the prompts to provide data, 
     try {
 
-        const answers = await promptUser();
-        const generateContent = generateMarkdown(answers);
+        const data = await projectPrompts();
+        const generateContent = generateMarkdown(data);     //followed by generating the file
 
-        await writeFileAsync('./item/README.md', generateContent);
-        console.log('Successfully wrote to README.md');
-    }   catch(err) {
+        await asyncFileFunction('./item/README(G).md', generateContent);
+        console.log('Successfully automatically generated(G) the README.md file');      //and placing it in the appropriate directory.
+
+    } catch (err) {
+
         console.log(err);
     }
-  }
-  
-  init();  
+}
+
+init();     //init to actuate function
