@@ -8,6 +8,7 @@ const asyncFileFunction = util.promisify(fs.writeFile);
 
 function projectPrompts() {      //Prompt function for the information to populate the file
     return inquirer.prompt([
+
         {
             type: "input",
             name: "projectName",
